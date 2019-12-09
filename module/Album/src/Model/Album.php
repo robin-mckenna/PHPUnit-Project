@@ -32,13 +32,13 @@ class Album
     }
 
     /**
-     * title must begin with a capital letter
+     * Title must begin with a capital letter
      *
      * @return bool
      */
     public function titleValid()
     {
-        if (!ctype_upper(substr($this->title, 0, 1))) {
+        if (ctype_upper(substr($this->title, 0, 1))) {
             return true;
         }
 
