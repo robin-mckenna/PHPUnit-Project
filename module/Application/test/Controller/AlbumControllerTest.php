@@ -10,6 +10,7 @@ class AlbumTest extends TestCase
      */
     public function testDateFoundedValid()
     {
+        // Create an album
         $dateFoundedTestAlbum = $this->newAlbum(
             '1',
             'Test Artist 1',
@@ -17,8 +18,16 @@ class AlbumTest extends TestCase
             '2018-08-08'
         );
 
+        // The date founded property
+        self::assertGreaterThan(
+            $dateFoundedTestAlbum->date_founded,
+            date('Y-m-d'),
+            'Date founded: ' . $dateFoundedTestAlbum->date_founded . PHP_EOL . 'Current Date: ' . date('Y-m-d')
+        );
+
+        // The dateFoundedValid function works as expected
         self::assertTrue(
-            date('Y-m-d') >  $dateFoundedTestAlbum->dateFoundedValid(),
+            $dateFoundedTestAlbum->dateFoundedValid(),
             'Date founded: ' . $dateFoundedTestAlbum->date_founded . PHP_EOL . 'Current Date: ' . date('Y-m-d')
         );
     }
