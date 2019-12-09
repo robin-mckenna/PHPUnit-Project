@@ -4,6 +4,8 @@ namespace Album\Model;
 
 class Album
 {
+    const titleLengthLimit = 300;
+
     public $id;
     public $artist;
     public $title;
@@ -32,16 +34,46 @@ class Album
     }
 
     /**
-     * Title must begin with a capital letter
+     * Returns true if the title is valid
      *
      * @return bool
      */
     public function titleValid()
+    {
+        return $this->beginsCaps() && $this->beginsAlpha() && $this->lengthValid();
+    }
+
+    /**
+     * Title must begin with a capital letter
+     *
+     * @return bool
+     */
+    public function beginsCaps()
     {
         if (ctype_upper(substr($this->title, 0, 1))) {
             return true;
         }
 
         return false;
+    }
+
+    /**
+     * returns true if title does not begin with a number
+     *
+     * @return bool
+     */
+    public function beginsAlpha()
+    {
+        return !is_numeric(substr(0, 1));
+    }
+
+    /**
+     * Returns true if the length is <= the titleLengthLimit
+     *
+     * @return bool
+     */
+    public function lengthValid()
+    {
+        return !(strlen($this->title) > self::titleLengthLimit);
     }
 }

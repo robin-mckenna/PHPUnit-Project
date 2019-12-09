@@ -35,6 +35,7 @@ class AlbumTest extends TestCase
     /**
      * True if an albums title meets requirements
      *
+     * @group Title
      * @dataProvider titleDataProvider
      * @param $albumTitle
      */
@@ -44,19 +45,36 @@ class AlbumTest extends TestCase
     }
 
     /**
-     * Provides data for valid and invalid values
+     * True if album begins with a capital letter
      *
-     * @return array
+     * @group Title
      */
-    public function titleDataProvider()
+    public function testBeginsCaps()
     {
-        return [
-            [$this->newAlbum(null, null, "Bag of mysteries", null)],
-            [$this->newAlbum(null, null, "the last straw", null)],
-            [$this->newAlbum(null, null, "1, The drawing board", null)],
-            [$this->newAlbum(null, null, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", null)],
-            [$this->newAlbum(null, null, "A", null)],
-        ];
+        $album = $this->newAlbum(null, null, 'Emotional wreckage', null);
+        $this->assertTrue($album->beginsCaps(), "Album: " . $album->title);
+    }
+
+    /**
+     * True if beginning character is not numeric
+     *
+     * @group Title
+     */
+    public function testBeginsAlpha()
+    {
+        $album = $this->newAlbum(null, null, 'Emotional wreckage', null);
+        $this->assertTrue($album->beginsAlpha(), 'The album was: ' . $album->title);
+    }
+
+    /**
+     * True if length is valid
+     *
+     * @group Title
+     */
+    public function testLengthValid()
+    {
+        $album = $this->newAlbum(null, null, 'Take Cover', null);
+        $this->assertTrue($album->lengthValid(), 'The album was: ' . $album->title);
     }
 
     /**
@@ -78,5 +96,21 @@ class AlbumTest extends TestCase
         $album->date_founded = $dateFounded;
 
         return $album;
+    }
+
+    /**
+     * Provides data for valid and invalid values
+     *
+     * @return array
+     */
+    public function titleDataProvider()
+    {
+        return [
+            [$this->newAlbum(null, null, "Bag of mysteries", null)],
+            [$this->newAlbum(null, null, "the last straw", null)],
+            [$this->newAlbum(null, null, "1, The drawing board", null)],
+            [$this->newAlbum(null, null, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", null)],
+            [$this->newAlbum(null, null, "A", null)],
+        ];
     }
 }
