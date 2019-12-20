@@ -99,7 +99,7 @@ class AlbumTest extends TestCase
     }
 
     /**
-     * Provides data for valid and invalid values
+     * Provides only titles
      *
      * @return array
      */
@@ -109,8 +109,46 @@ class AlbumTest extends TestCase
             [$this->newAlbum(null, null, "Bag of mysteries", null)],
             [$this->newAlbum(null, null, "the last straw", null)],
             [$this->newAlbum(null, null, "1, The drawing board", null)],
-            [$this->newAlbum(null, null, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", null)],
+            [$this->newAlbum(null, null, "Lorem ipsum dolor sit amet, consectetur adipisicing elit.", null)],
             [$this->newAlbum(null, null, "A", null)],
         ];
+    }
+
+    public function albumDataProvider()
+    {
+        return [
+            [$this->newAlbum(1, 'artist1', "Bag of mysteries", date('YYYY-mm-dd'))],
+            [$this->newAlbum(2, 'artist2', "the last straw", date('YYYY-mm-dd'))],
+            [$this->newAlbum(3, 'artist3', "1, The drawing board", date('YYYY-mm-dd'))],
+            [$this->newAlbum(4, 'artist4', "Lorem ipsum dolor sit amet, consectetur adipisicing elit.", date('YYYY-mm-dd'))],
+            [$this->newAlbum(5, 'artist5', "A", date('YYYY-mm-dd'))],
+        ];
+    }
+
+    /**
+     * Expects the album title to be uppercased
+     * @group reflectionmock
+     * @dataProvider titleDataProvider
+     * @param Album $albumWithTitle
+     * @throws ReflectionException
+     */
+    public function testTitleUppercase(Album $albumWithTitle)
+    {
+        $method = new ReflectionMethod('\Album\Model\Album', 'titleUpperCase');
+        if ($method->isPrivate()) {
+            $method->setAccessible(true);
+        }
+
+        $this->assertEquals(strtoupper($albumWithTitle->title), $method->invoke($albumWithTitle));
+    }
+
+    /**
+     * @group mock
+     */
+    public function testFormat()
+    {
+       $mockAlbum = $this->getMockBuilder('\Album\Model\Album')->method()->getMock();
+
+       $mockAlbum->will
     }
 }

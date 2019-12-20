@@ -76,4 +76,19 @@ class Album
     {
         return !(strlen($this->title) > self::titleLengthLimit);
     }
+
+    /**
+     * Helper function to uppercase the title
+     *
+     * @return string
+     */
+    private function titleUpperCase()
+    {
+        return strtoupper($this->title);
+    }
+
+    public function format()
+    {
+        return sprintf('%d | Artist: $s, Title: %s, Date Founded: %s', $this->id, $this->artist, $this->title, $this->date_founded);
+    }
 }
