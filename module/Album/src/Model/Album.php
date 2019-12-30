@@ -2,6 +2,8 @@
 
 namespace Album\Model;
 
+use Fusion\Model\Order;
+
 class Album
 {
     const titleLengthLimit = 300;
@@ -82,9 +84,29 @@ class Album
      *
      * @return string
      */
-    private function titleUpperCase()
+    private function titleToUpperCase()
     {
         return strtoupper($this->title);
+    }
+
+    /**
+     * Lowercases the title
+     *
+     * @return string
+     */
+    public function titleToLowerCase()
+    {
+        return strtolower($this->title);
+    }
+
+    /**
+     * Returns No title if the title for the album has not been set
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return ($this->title) ? $this->title : "No Title";
     }
 
     public function format()

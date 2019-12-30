@@ -5,6 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 class AlbumTest extends TestCase
 {
+
     /**
      * Expects the current date to be later than the founded album date
      */
@@ -132,23 +133,13 @@ class AlbumTest extends TestCase
      * @param Album $albumWithTitle
      * @throws ReflectionException
      */
-    public function testTitleUppercase(Album $albumWithTitle)
+    public function testTitleToUppercase(Album $albumWithTitle)
     {
-        $method = new ReflectionMethod('\Album\Model\Album', 'titleUpperCase');
+        $method = new ReflectionMethod('\Album\Model\Album', 'titleToUpperCase');
         if ($method->isPrivate()) {
             $method->setAccessible(true);
         }
 
         $this->assertEquals(strtoupper($albumWithTitle->title), $method->invoke($albumWithTitle));
-    }
-
-    /**
-     * @group mock
-     */
-    public function testFormat()
-    {
-       $mockAlbum = $this->getMockBuilder('\Album\Model\Album')->method()->getMock();
-
-       $mockAlbum->will
     }
 }
